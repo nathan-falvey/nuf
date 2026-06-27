@@ -6,7 +6,7 @@ colorama.init(autoreset=True)
 
 
 COLOUR_TABLE = {
-    "default": Fore.BLUE,
+    "default": Style.RESET_ALL,
     "info": Fore.BLUE,
     "success": Fore.GREEN,
     "warning": Fore.YELLOW,
