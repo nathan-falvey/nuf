@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0", "colorama", "send2trash"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nuf"
+version = "0.1.0"
+authors = [
+  { name="Nathan Falvey" },
+]
+description = "A versatile multi-file utility module, a series of useful code that is referenced from various projects that i repeatedly use."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "colorama",
+    "send2trash",
+    "pathlib"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
