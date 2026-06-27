@@ -1,4 +1,3 @@
-from nuf.message_utils import print_success
 import logging
 import shutil
 import os
@@ -400,7 +399,7 @@ def delete_file(file_path: Union[str, Path]) -> None:
     except OSError as e:
         raise OperationFailedError(f"Failed to delete file: {p}. Original error: {e}")
 
-def obfuscate_file_and_delete(file_path: Union[str, Path], debug: bool = False) -> None:
+def obfuscate_file_and_delete(file_path: Union[str, Path]) -> None:
     """ Obfuscates a file by overwriting it with random data and then deleting it 
 
     Args:
@@ -421,17 +420,13 @@ def obfuscate_file_and_delete(file_path: Union[str, Path], debug: bool = False) 
     try:
         with open(p, 'wb') as file:
             file.write(os.urandom(size))
-            if debug:
-                print_success(f"Obfuscated file: {p}")
         p.unlink(missing_ok=False)
-        if debug:
-            print_success(f"Deleted file: {p}")
     except PermissionError as e:
         raise PermissionDeniedError(f"Permission denied obfuscating or deleting file: {p}. Original error: {e}")
     except OSError as e:
         raise OperationFailedError(f"Failed to obfuscate or delete file: {p}. Original error: {e}")
 
-def send_file_to_trash(file_path: Union[str, Path], debug: bool = False) -> None:
+def send_file_to_trash(file_path: Union[str, Path]) -> None:
     """ Sends a file to the trash 
 
     Args:
@@ -449,8 +444,6 @@ def send_file_to_trash(file_path: Union[str, Path], debug: bool = False) -> None
         raise PathNotFoundError(f"File not found: {p}")
     try:
         send2trash.send2trash(p)
-        if debug:
-            print_success(f"Sent file to trash: {p}")
     except Exception as e:
         raise OperationFailedError(f"Failed to send file to trash: {p}. Original error: {e}")
     

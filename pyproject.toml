@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "colorama", "send2trash"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nuf"
-version = "0.0.2"
+name = "PyNUF"
+version = "0.0.1.dev1"
 authors = [
   { name="Nathan Falvey" },
 ]
