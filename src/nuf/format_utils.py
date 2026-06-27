@@ -1,7 +1,8 @@
 from typing import Union
 from pathlib import Path
+from colorama import init
 
-
+init(autoreset=True)
 
 def format_func() -> str:
     return "Hello from format_utils"
