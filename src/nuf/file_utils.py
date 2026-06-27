@@ -183,8 +183,8 @@ def return_lines_from_file(path: Union[str, Path], encoding: str = 'utf-8') -> L
         raise OperationFailedError(f"Failed to read lines from file: {p}. Original error: {e}")
 
 
-def stream_files(path: Union[str, Path], recursive: Union[True, False]) -> object:
-    """ Streams a list of filenames from a file, paths are chosen by extension
+def stream_files(path: Union[str, Path], recursive: bool = False) -> object:
+    """ Streams a list of filenames from a directory, paths are chosen by extension
 
     Args:
         path (Union[str, Path]): The path to the directory to stream files from.
@@ -212,8 +212,13 @@ def stream_files(path: Union[str, Path], recursive: Union[True, False]) -> objec
         if file.is_file():
             yield file
 
-def stream_files_by_extension(path: Union[str, Path], extensions: list, recursive: Union[True, False]) -> object:
-    """ Streams a list of filenames from a file, paths are chosen by extension
+def stream_files_by_extension(path: Union[str, Path], extensions: list, recursive: bool = False) -> object:
+    """ Streams a list of filenames from a directory, paths are chosen by extension
+
+    Args:
+        path (Union[str, Path]): The path to the directory to stream files from.
+        extensions (list): A list of extensions to stream files by.
+        recursive (bool): Whether to stream files recursively.
 
     Raises:
         PathNotFoundError: If file does not exist.
@@ -236,8 +241,13 @@ def stream_files_by_extension(path: Union[str, Path], extensions: list, recursiv
             yield file
 
 
-def list_files_by_extension(path: Union[str, Path], extensions: list, recursive: Union[True, False]) -> List[Path]:
-    """ Returns a list of filenames from a file, paths are chosen by extension
+def list_files_by_extension(path: Union[str, Path], extensions: list, recursive: bool = False) -> List[Path]:
+    """ Returns a list of filenames from a directory, paths are chosen by extension
+
+    Args:
+        path (Union[str, Path]): The path to the directory to list files from.
+        extensions (list): A list of extensions to list files by.
+        recursive (bool): Whether to list files recursively.
 
     Raises:
         PathNotFoundError: If file does not exist.
@@ -258,8 +268,13 @@ def list_files_by_extension(path: Union[str, Path], extensions: list, recursive:
     return [file for file in files if file.is_file() and file.suffix in extensions]
 
 
-def get_files_by_extension(path: Union[str, Path], extensions: list, recursive: Union[True, False]) -> List[Path]:
-    """ Returns a list of filenames from a file, paths are chosen by extension
+def get_files_by_extension(path: Union[str, Path], extensions: list, recursive: bool = False) -> List[Path]:
+    """ Returns a list of filenames from a directory, paths are chosen by extension
+
+    Args:
+        path (Union[str, Path]): The path to the directory to get files from.
+        extensions (list): A list of extensions to get files by.
+        recursive (bool): Whether to get files recursively.
 
     Raises:
         PathNotFoundError: If file does not exist.
