@@ -1,3 +1,9 @@
+import typing_extensions
+import typing_extensions
+from send2trash import exceptions
+from send2trash import exceptions
+import typing_extensions
+import tarfile
 import logging
 import shutil
 import os
@@ -28,10 +34,28 @@ class OperationFailedError(FileUtilsError):
     """Raised when an OS or file system operation fails."""
     pass
 
+
+
+
+
+
+
 # Dummy function for linting
 def file_func() -> str:
     return "Hello from file_utils"
 
+def rebuild_extensions_list(file_extensions: list) -> list:
+    """Fixes any extensions put into lists and prefixes them with a ".", so for example ['jpg'] becomes ['.jpg']."""
+    extensions = []
+    for extension in file_extensions:
+        if not extension.startswith(extension, "."):
+            new_extension = "." + extension
+        else:
+            new_extension = extension
+        
+        extensions.append(new_extension)
+    
+    return extensions
 
 def check_file_exists(path: Union[str, Path]) -> bool:
     """Checks if a file exists at the given path."""
@@ -446,4 +470,42 @@ def send_file_to_trash(file_path: Union[str, Path]) -> None:
         send2trash.send2trash(p)
     except Exception as e:
         raise OperationFailedError(f"Failed to send file to trash: {p}. Original error: {e}")
+
+
+def move_files(file_paths: Union[list, list[Path]], destination: Union[str, Path], overwrite: bool = False, delete_after_move: bool = False) -> None:
+    """ Moves multiple files to a destination directory 
+
+    Args:
+        file_paths (Union[list, list[Path]]): The paths to the files to move.
+        destination (Union[str, Path]): The destination directory.
+        overwrite (bool, optional): Whether to overwrite existing files. Defaults to False.
+        delete_after_move (bool, optional): Whether to delete the files after moving them. Defaults to False.
+
+    Raises:
+        PathNotFoundError: If file does not exist.
+        PermissionDeniedError: If permission is denied.
+        OperationFailedError: If move operation fails.
+
+    """
+    p = Path(destination)
+    if not p.is_dir():
+        raise PathNotFoundError(f"Destination directory not found: {p}")
+    for file_path in file_paths:
+        p = Path(file_path)
     
+    
+
+        if p.is_file():
+            new_path = p.with_name(f"{destination}/{p.name}")
+            if new_path.exists():
+                if overwrite:
+                    p.replace(new_path)
+                    if delete_after_move and p.exists():
+                        p.unlink()
+                else:
+                    raise FileExistsError(f"File already exists at destination: {new_path}")    
+            else:
+                p.replace(new_path)
+        
+
+            
